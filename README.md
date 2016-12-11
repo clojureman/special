@@ -289,7 +289,7 @@ There are other libraries out there that you might want to consider
 
   Library | Clojure | ClojureScript | Thread-safe | Laziness-safe | Comment 
   --- | --- | --- | --- | --- | ---
-  [special-conditions](.) | Yes | Yes | Yes | Yes | This library
+  [special](.) | Yes | Yes | Yes | Yes | This library
   [errorkit](https://github.com/richhickey/clojure-contrib/blob/master/src/main/clojure/clojure/contrib/error_kit.clj) | Yes | No | ? | ? | Experimental system by Chris Houser
   [swell](https://github.com/hugoduncan/swell) | Yes | No | ? | ? | A restart library based on [slingshot](https://github.com/scgilardi/slingshot).
   [conditions](https://github.com/bwo/conditions) | Yes | No |  ? | ? |Resumable exceptions library based on [slingshot](https://github.com/scgilardi/slingshot).  
