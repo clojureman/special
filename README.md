@@ -1,6 +1,9 @@
 # Special (Conditions)
 ## Decomplect your code. No mystique! No macros!
 
+
+[![Clojars Project](http://clojars.org/special/latest-version.svg)](http://clojars.org/special)
+
 Special is a **safe** and **easy to use** library that 
 allows you to separate the logic of handling 
 special conditions from the code in which they arise.
