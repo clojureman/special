@@ -34,7 +34,7 @@ This soon creates a patchwork of code that becomes very difficult to reason abou
 | function | input | output
 | --- | --- | ---
 | `manage` | A function `f` and optional handlers for conditions that might arise during the execution of `f` | A version of `f` where the listed conditions are handled.
-| `condition` | A condition `c`, a value and optional handlers for conditions that might arise during the execution of a handler for `c` | The value returned from a matching condition-handler. If no condition handler exists, the :normally handler is used. If that does not exist either, an exception is thrown    
+| `condition` | A condition keyword `c` , a value and optional handlers for conditions that might arise during the execution of a handler for `c` | The value returned from a matching condition-handler. If no condition handler exists, the :normally handler is used. If that does not exist either, an exception is thrown    
 
 The function `manage` takes a function and zero or more condition handlers.
 
