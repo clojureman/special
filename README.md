@@ -91,7 +91,7 @@ Now let's express that with conditions.
 
 The call to `condition` here says that the
 special condition `:odd` occured for 
-some value `ì` and that we normally handle 
+some value `i` and that we normally handle 
 it by using the value 100.
 
 The handler could be a function instead of 
