@@ -78,7 +78,7 @@ Let's modify the function to return 100 in the place of all odd i's:
 ```
 Now let's express that with conditions.
 ```clojure
-(use 'special.core)
+(require '[special.core :refer [condition manage]])
 ```
 
 ```clojure
