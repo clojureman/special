@@ -83,7 +83,7 @@ Now let's express that with conditions.
 
 ```clojure
 ((fn [n]
-   (for [i (range 10)]
+   (for [i (range n)]
      (if (odd? i)
        (condition :odd i :normally 100)
        i)))
@@ -102,12 +102,11 @@ choose to normally double all odd numbers:
 
 ```clojure
 ((fn [n]
-   (for [i (range 10)]
+   (for [i (range n)]
      (if (odd? i)
        (condition :odd i :normally #(* 2 %))
        i)))
   10)
-
 => (0 2 2 6 4 10 6 14 8 18)
 ```
 Well, actually this means double the condition value. 
@@ -115,12 +114,11 @@ You can see that here:
 ```clojure
 => (0 2 2 6 4 10 6 14 8 18)
 ((fn [n]
-   (for [i (range 10)]
+   (for [i (range n)]
      (if (odd? i)
        (condition :odd (- i) :normally #(* 2 %))
        i)))
   10)
-
 => (0 -2 2 -6 4 -10 6 -14 8 -18)
 ```
 You can pass anything you want as a condition value.
@@ -134,7 +132,7 @@ the condition itself instead.
 The way this is done is by calling the function `manage` with a function and a variable number of condition handlers. `manage` returns a new function, in which these condition handlers are active. 
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i :normally #(* 2 %))
               i)))
@@ -150,14 +148,14 @@ It does not matter how many calling levels there are
 between `manage`and `condition`.
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i :normally #(* 2 %))
               i)))
-      g #(f (- % 5)) 
-      h (manage g :odd #(+ % 100))] 
+      g #(f (- % 5))
+      h (manage g :odd #(+ % 100))]
   (h 10))
-=> (0 101 2 103 4 105 6 107 8 109)
+=> (0 101 2 103 4)
 ```
 `:normally` is not very special. In fact it is just a 
 normal condition handler, but it is special in one way: 
@@ -173,7 +171,7 @@ If there is no `:normally` handler, a condition can end
 up unhandled. In this case an ex-info exception is thrown. 
 ```clojure
 ((fn [n]
-   (for [i (range 10)]
+   (for [i (range n)]
      (if (odd? i)
        (condition :odd i)
        i)))
@@ -186,7 +184,7 @@ As you can see below, a `:normally` handler is not required,
 though it is good practice to have one.
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i)
               i)))
@@ -204,7 +202,7 @@ decides *how* to do it.
 
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i 
                          :unimportant nil
@@ -223,7 +221,7 @@ let the called function handle it how it `:normally` does?
 
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i :normally '...)
               i)))
@@ -236,7 +234,7 @@ let the called function handle it how it `:normally` does?
 Handlers "know about" each other in a natural way:
 ```clojure
 (let [f (fn [n]
-          (for [i (range 10)]
+          (for [i (range n)]
             (if (odd? i)
               (condition :odd i 
                          :normally '... 
