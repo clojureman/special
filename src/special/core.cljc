@@ -53,7 +53,12 @@
   c must be a keyword."
   [condition & [value & {:as handlers}]]
   (assert (and (keyword? condition) (not (#{:trace} condition))))
-  (let [get-h (fn [m k] (if (contains? m k) (if-let [h (m k)] h ::nil)))
+  (let [get-h (fn [m k] (if (contains? m k)
+                          (let [h (m k)]
+                            (case h
+                              nil ::nil
+                              false ::false
+                              h))))
         x (or (get-h *-special-condition-handlers-* condition)
               (get-h handlers :normally)
               (throw (ex-info (str "Unhandled condition " condition)
@@ -64,4 +69,5 @@
                      x)
                     value)
           (= ::nil x) nil
+          (= ::false x) false
           :else x)))
