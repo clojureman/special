@@ -313,6 +313,13 @@ The Lisp solution to this problem is called "conditional restarts".
 * Chapter 19 in Peter Siebel's book [Practical Common Lisp](http://www.gigamonkeys.com/book/).
 * Kent Pitman [Exceptional Situations In Lisp](http://www.nhplace.com/kent/Papers/Exceptional-Situations-1990.html)
  
+## Contributors
+ 
+A thank you for contributions goes to
+
+- Kurt Heyrman
+- *your name here?*
+
 ## License
 
 Copyright © 2016 Mads Olsen.
