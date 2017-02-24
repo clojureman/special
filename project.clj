@@ -1,4 +1,4 @@
-(defproject special "0.1.2-Beta1"
+(defproject special "0.1.3-Beta1"
   :description "Special (Conditions). A minimalistic condition library that is not complected with exception handling. "
   :url "https://github.com/clojureman/special"
   :license {:name "Eclipse Public License"
