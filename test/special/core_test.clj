@@ -19,3 +19,12 @@
                                  (condition :hello 'Dolly)))]
             (g 10))
           '(0 [hello Dolly] 2 [hello Dolly] 4 [hello Dolly] 6 [seven ...] 8 [hello Dolly])))))
+
+(deftest handlers
+  (testing "non-function handlers"
+    (is (= nil
+           (condition :yxz 123 :normally nil)))
+    (is (= false
+           (condition :yxz 123 :normally false)))
+    (is (= 999
+           (condition :yxz 123 :normally 999)))))
