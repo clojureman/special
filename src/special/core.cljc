@@ -30,9 +30,12 @@
   function result."
   [f]
   (fn [& args]
-    (let [res (apply f args)
-          _ (pr-str res)]
-      res)))
+    (let [res (apply f args)]
+      (if (instance? #?(:clj clojure.lang.IPending :cljs cljs.core.IPending) res)
+        (if (seq? res)
+          (doall res)
+          (force res))
+        res))))
 
 (defn manage
   "Takes a function f and an \"inlined\" map of conditions and keywords.
