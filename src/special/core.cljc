@@ -53,14 +53,20 @@
   c must be a keyword."
   [condition & [value & {:as handlers}]]
   (assert (and (keyword? condition) (not (#{:trace} condition))))
-  (let [x (or (get *-special-condition-handlers-* condition)
-              (get handlers :normally)
+  (let [get-h #(when (contains? % %2)
+                 (let [x (% %2)]
+                   ({nil ::nil false ::false} x x)))
+        x (or (get-h *-special-condition-handlers-* condition)
+              (get-h handlers :normally)
               (throw (ex-info (str "Unhandled condition " condition)
                               {::condition condition
                                :value      value})))]
-    (if (fn? x)
-      ((if (seq handlers)
-         (apply manage x (apply concat handlers))
-         x)
-       value)
-      x)))
+    (case x
+      ::nil nil
+      ::false false
+      (if (fn? x)
+        ((if (seq handlers)
+           (apply manage x (apply concat handlers))
+           x)
+         value)
+        x))))
