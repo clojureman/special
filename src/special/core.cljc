@@ -24,18 +24,20 @@
     (binding [*-special-condition-handlers-* (merge *-special-condition-handlers-* restarts)]
       (apply f args))))
 
+(defn- eager [v]
+  (if (instance? #?(:clj clojure.lang.IPending :cljs cljs.core.IPending) v)
+    (if (seq? v)
+      (doall (map eager v))
+      (force v))
+    v))
+
 (defn- eagerize
   "Turns a lazy function into an eager function, at the
   run-time cost of using pr-str to fully realize the
   function result."
   [f]
   (fn [& args]
-    (let [res (apply f args)]
-      (if (instance? #?(:clj clojure.lang.IPending :cljs cljs.core.IPending) res)
-        (if (seq? res)
-          (doall res)
-          (force res))
-        res))))
+    (eager (apply f args))))
 
 (defn manage
   "Takes a function f and an \"inlined\" map of conditions and keywords.
