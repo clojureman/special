@@ -1,4 +1,5 @@
-(ns special.core)
+(ns special.core
+  (:require [clojure.walk :refer [postwalk]]))
 
 (defonce ^:dynamic *-special-condition-handlers-* {})
 
@@ -25,11 +26,7 @@
       (apply f args))))
 
 (defn- eager [v]
-  (if (instance? #?(:clj clojure.lang.IPending :cljs cljs.core.IPending) v)
-    (if (seq? v)
-      (doall (map eager v))
-      (force v))
-    v))
+  (postwalk (constantly nil) v))
 
 (defn- eagerize
   "Turns a lazy function into an eager function, at the
