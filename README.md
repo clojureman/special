@@ -295,7 +295,7 @@ There are other libraries out there that you might want to consider
   [conditions](https://github.com/bwo/conditions) | Yes | No |  ? | ? |Resumable exceptions library based on [slingshot](https://github.com/scgilardi/slingshot).  
    ribol / [hara.event](https://github.com/zcaudate/hara) | Yes | No |  ? | ? |Part of a much larger library intended to be "a big, monolithic, kitchen-sink type codebase"
  Chris Houser's library-less approach | Yes | No | No | No | See comment below
- [rp.condition](https://raw.githubusercontent.com/rentpath/rp-condition-clj/master/README.md) | Yes | Yes | No | No | Library that builds upon Chris Houser's approach
+ [rp.condition](https://github.com/rentpath/rp-condition-clj) | Yes | Yes | No | No | Library that builds upon Chris Houser's approach
  
 Chris Houser has given an excellent little talk 
 called [_Condition Systems in an Exceptional 
