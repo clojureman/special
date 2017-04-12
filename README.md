@@ -315,9 +315,8 @@ The Lisp solution to this problem is called "conditional restarts".
  
 ## Contributors
  
-A thank you for contributions goes to
-
-- Kurt Heyrman
+- [Kurt Heyrman](https://github.com/qrthey)
+- [CRHough](https://github.com/CRHough)
 - *your name here?*
 
 ## License
