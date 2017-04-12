@@ -1,4 +1,5 @@
-(ns special.core)
+(ns special.core
+  (:require [clojure.walk :refer [postwalk]]))
 
 (defonce ^:dynamic *-special-condition-handlers-* {})
 
@@ -24,15 +25,16 @@
     (binding [*-special-condition-handlers-* (merge *-special-condition-handlers-* restarts)]
       (apply f args))))
 
+(defn- eager [v]
+  (postwalk (constantly nil) v))
+
 (defn- eagerize
   "Turns a lazy function into an eager function, at the
   run-time cost of using pr-str to fully realize the
   function result."
   [f]
   (fn [& args]
-    (let [res (apply f args)
-          _ (pr-str res)]
-      res)))
+    (eager (apply f args))))
 
 (defn manage
   "Takes a function f and an \"inlined\" map of conditions and keywords.
