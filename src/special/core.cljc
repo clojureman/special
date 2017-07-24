@@ -24,7 +24,9 @@
     (binding [*-special-condition-handlers-* (merge *-special-condition-handlers-* restarts)]
       (apply f args))))
 
-(defn- eager [v]
+
+(defmulti eager (fn [type _] type))
+(defmethod eager :default [_ v]
   (pr-str v)
   v)
 
@@ -32,11 +34,11 @@
   "Turns a lazy function into an eager function, at the
   run-time cost of using pr-str to fully realize the
   function result."
-  [eager-fn f]
+  [eager-type f]
   (fn [& args]
-    (eager (apply f args))))
+    (eager eager-type (apply f args))))
 
-(defn manage-with
+(defn manage-as
   "Takes a function f and an \"inlined\" map of conditions and keywords.
   Returns a function in which these conditions are managed.
 
@@ -45,10 +47,10 @@
 
   f is allowed to be lazy, but the result must be finite, as it will
   always be fully realized. In other words: manage returns an eager function."
-  [f eager-fn & restarts]
+  [f  & restarts]
   (apply manage-eager-conditions (eagerize eager-fn f) restarts))
 
-(def manage (partial manage-with eager))
+(def manage (partial manage-as :default))
 
 (defn condition
   "Raise a condition c with optional value v and optionally an \"inlined\" map of conditions to handlers.
