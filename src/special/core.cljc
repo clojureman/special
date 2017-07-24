@@ -1,4 +1,5 @@
-(ns special.core)
+(ns special.core
+  (:require [clojure.walk :as walk]))
 
 (defonce ^:dynamic *-special-condition-handlers-* {})
 
@@ -25,6 +26,8 @@
       (apply f args))))
 
 (defmulti eager (fn [type _] type))
+(defmethod eager ::postwalk [_ v]
+  (walk/postwalk (constantly nil) v) v)
 (defmethod eager ::default [_ v]
   (pr-str v) v)
 (defmethod eager :default [_ v]
