@@ -1,5 +1,5 @@
 # Special (Conditions)
-## Decomplect your code. No mystique! No macros!
+## Decomplect _when, what, and how._ No mystique! No macros!
 
 [![Clojars Project](https://img.shields.io/clojars/v/special.svg)](https://clojars.org/special)
 
@@ -196,8 +196,8 @@ though it can be good practice to have one.
 How about some more fun with handlers? Like decomplecting 
 the decision about *what* to do about odd numbers 
 from *how* to do it.
-In the example below, `f` decides *which* numbers are `:odd`, 
-`g` decides *what* to do about them, and `f` also 
+In the example below, `f` detects *when* we have an `:odd` situation, 
+`g` decides *what* to do about it, and `f` also 
 decides *how* to do it.
 
 ```clojure
