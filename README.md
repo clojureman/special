@@ -181,7 +181,7 @@ ExceptionInfo Unhandled condition :odd  clojure.core/ex-info (core.clj:4617)
 ```
 
 As you can see below, a `:normally` handler is not required, 
-though it is good practice to have one.
+though it can be good practice to have one.
 ```clojure
 (let [f (fn [n]
           (for [i (range n)]
