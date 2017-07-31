@@ -1,11 +1,12 @@
 (ns special.eagerize)
 
 #?(:clj (defn eagerize
-          "Recursively iterate over Clojure data structures and Java data structures,
-           evaluating each element, so as to force eagerization of any lazy construct.
+          "Recursively iterate over Clojure data structures and Java data
+           structures, evaluating each element, so as to force eagerization of
+           any lazy construct.
            Supports:
-           - Clojure IPersistentList, IMapEntry, ISeq, IRecord, IPersistentCollection
-             and IType.
+           - Clojure IPersistentList, IMapEntry, ISeq, IRecord,
+             IPersistentCollection, IType and Delay.
            - Java Iterable, Map and Arrays."
           [form]
           (cond
@@ -16,6 +17,7 @@
             (instance? clojure.lang.IRecord form)
             (reduce (fn [r x] (conj r (eagerize x))) form form)
             (coll? form) (into (empty form) (map eagerize form))
+            (delay? form) (eagerize (deref form))
             (instance? java.lang.Iterable form) (doall (map eagerize form))
             (instance? java.util.Map form) (doall (map eagerize (.values form)))
             (instance? clojure.lang.IType form) (doall

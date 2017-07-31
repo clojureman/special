@@ -44,6 +44,12 @@
            (eagerize ls)
            (.-s ls)))))
   
+  (testing "Can eagerize deep nested Clojure Delay."
+    (is (realized?
+         (let [ls (delay (make-nested-lazy-list))]
+           (eagerize ls)
+           @ls))))
+  
   (testing "Can eagerize deep nested Java Iterable."
     (is (realized?
          (let [ls (doto (java.util.LinkedList.)
