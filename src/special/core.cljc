@@ -1,4 +1,5 @@
-(ns special.core)
+(ns special.core
+  (:require [special.eagerize :as eag]))
 
 (defonce ^:dynamic *-special-condition-handlers-* {})
 
@@ -31,7 +32,7 @@
   [f]
   (fn [& args]
     (let [res (apply f args)
-          _ (pr-str res)]
+          _ (eag/eagerize res)]
       res)))
 
 (defn manage
