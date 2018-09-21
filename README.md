@@ -217,7 +217,7 @@ decides *how* to do it.
 ```
 
 Or how about managing a condition, then deciding to 
-let the called function handle it how it `:normally` does?
+let the called function handle how it `:normally` does?
 
 ```clojure
 (let [f (fn [n]
